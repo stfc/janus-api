@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from janus_web import __version__
+from janus_api import __version__
 
 
 def test_example():
