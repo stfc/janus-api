@@ -1,2 +1,2 @@
-# janus-web
-Web app for janus-core
+# janus-api
+Web app API for janus-core
