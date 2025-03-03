@@ -2,14 +2,23 @@
 
 from __future__ import annotations
 
-import os
+import configparser
 from pathlib import Path
 
-from dotenv import find_dotenv, load_dotenv
+# Create a ConfigParser object
+config = configparser.ConfigParser()
 
-load_dotenv(find_dotenv())
+# Read the config.ini file
+config.read("config.ini")
 
-DATA_DIR = Path(os.getenv("DATA_DIR"))
-OUTPUT_DIR = Path(os.getenv("DATA_DIR"))
-PORT = int(os.getenv("PORT"))
-FRONTEND_URL = os.getenv("FRONTEND_URL")
+# Read the settings from the config file
+DATA_DIR = Path(config["settings"]["DATA_DIR"])
+OUTPUT_DIR = Path(config["settings"]["OUTPUT_DIR"])
+PORT = int(config["settings"]["PORT"])
+FRONTEND_URL = config["settings"]["FRONTEND_URL"].split(", ")
+
+# Optionally, you can print the values to verify they are loaded correctly
+print(f"DATA_DIR: {DATA_DIR}")
+print(f"OUTPUT_DIR: {OUTPUT_DIR}")
+print(f"PORT: {PORT}")
+print(f"FRONTEND_URL: {FRONTEND_URL}")
