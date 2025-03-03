@@ -5,9 +5,9 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
-load_dotenv()
+load_dotenv(find_dotenv())
 
 DATA_DIR = Path(os.getenv("DATA_DIR"))
 OUTPUT_DIR = Path(os.getenv("DATA_DIR"))

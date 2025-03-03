@@ -23,8 +23,6 @@ app.include_router(singlepoint_route.router)
 app.include_router(geomopt_route.router)
 
 if __name__ == "__main__":
-    print(PORT)
-
     uvicorn.run(
         app, host="0.0.0.0", port=PORT, log_config=logging_config.LOGGING_CONFIG
     )
