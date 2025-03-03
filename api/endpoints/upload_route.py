@@ -7,10 +7,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
-from api.utils.upload_helper import (
-    get_all_filenames,
-    save_file,
-)
+from api.utils.upload_helper import get_all_filenames, read_file, save_file
 
 logger = logging.getLogger(__name__)
 
@@ -58,3 +55,31 @@ async def get_files() -> list[str]:
         A list of filenames of all uploaded files.
     """
     return get_all_filenames()
+
+
+@router.get("/file/{target_file}")
+async def return_file_contents(target_file: str) -> str:
+    """
+    Get the contents of the specified file.
+
+    Parameters
+    ----------
+    target_file : str
+        The file to be read.
+
+    Returns
+    -------
+    str
+        The contents of the file specified.
+
+    Raises
+    ------
+    HTTPException
+        If the file is not found or cannot be read.
+    """
+    try:
+        return read_file(target_file)
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail="File not found") from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e

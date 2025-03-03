@@ -73,3 +73,34 @@ def get_all_filenames(directory: Path = DATA_DIR) -> list[str]:
 
     filenames = [str(file.name) for file in directory.iterdir() if file.is_file()]
     return filenames if filenames else []
+
+
+def read_file(target_file: str):
+    """
+    Read a specific file in the data directory and returns the contents.
+
+    Parameters
+    ----------
+    target_file : str
+        Name of the file to read.
+
+    Returns
+    -------
+    str
+        The contents of the file.
+
+    Raises
+    ------
+    FileNotFoundError
+        If the file is not found.
+    Exception
+        For any other errors that occur.
+    """
+    file_path = DATA_DIR / target_file
+    try:
+        with open(file_path) as file:
+            return file.read()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(
+            f"Error: The file '{target_file}' was not found."
+        ) from e
