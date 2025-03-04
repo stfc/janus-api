@@ -77,7 +77,7 @@ def get_all_filenames(directory: Path = DATA_DIR) -> list[str]:
 
 def read_file(target_file: str):
     """
-    Read a specific file in the data directory and returns the contents.
+    Read a specific file in the data directory and returns the contents a string.
 
     Parameters
     ----------
@@ -87,7 +87,7 @@ def read_file(target_file: str):
     Returns
     -------
     str
-        The contents of the file.
+        The UTF-8 encoded contents of the file.
 
     Raises
     ------
@@ -98,8 +98,9 @@ def read_file(target_file: str):
     """
     file_path = DATA_DIR / target_file
     try:
-        with open(file_path) as file:
-            return file.read()
+        with open(file_path, "rb") as file:
+            file_content = file.read()
+            return file_content.decode("utf-8")
     except FileNotFoundError as e:
         raise FileNotFoundError(
             f"Error: The file '{target_file}' was not found."

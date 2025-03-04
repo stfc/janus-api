@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi.responses import JSONResponse
 
 from api.utils.upload_helper import get_all_filenames, read_file, save_file
 
@@ -69,8 +71,8 @@ async def return_file_contents(target_file: str) -> str:
 
     Returns
     -------
-    str
-        The contents of the file specified.
+    JSONResponse
+        A JSON response containing the file contents, filename, and file format.
 
     Raises
     ------
@@ -78,7 +80,15 @@ async def return_file_contents(target_file: str) -> str:
         If the file is not found or cannot be read.
     """
     try:
-        return read_file(target_file)
+        file_content = read_file(target_file)
+        file_format = Path(target_file).suffix.lstrip(".")
+        return JSONResponse(
+            content={
+                "fileName": target_file,
+                "fileFormat": file_format,
+                "content": file_content,
+            }
+        )
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail="File not found") from e
     except Exception as e:
