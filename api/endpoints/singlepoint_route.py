@@ -40,7 +40,7 @@ async def get_singlepoint(request: SinglePointRequest):
     """
     base_dir = Path("data")
     struct_path = base_dir / request.struct
-    logger.info(f"Request contents: {request}")
+    logger.info("Request contents: %s", request)
 
     try:
         results = singlepoint(
