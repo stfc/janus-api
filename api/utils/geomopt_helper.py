@@ -47,7 +47,7 @@ def geomopt(
         Results of the geometry optimisation.
     """
     read_kwargs = {"index": -1}
-    results_file = results_path / f"{struct.stem}-results.{format}"
+    results_file = results_path / f"{struct.stem}-geom-results.{format}"
     traj_path = results_path / f"{struct.stem}-traj-results.{format}"
 
     write_kwargs = {"filename": results_file, "format": format}
@@ -78,7 +78,7 @@ def geomopt(
 
 
 if __name__ == "__main__":
-    struct_path = DATA_DIR / "NaCl-single.xyz"
+    struct_path = DATA_DIR / "c60.cif"
     optimised_results = geomopt(struct_path)
 
     print(optimised_results)

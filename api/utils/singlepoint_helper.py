@@ -51,7 +51,7 @@ def singlepoint(
     """
     logger.info(f"format type: {format}")
     read_kwargs = {"index": range_selector}
-    results_path = results_path / f"{struct.stem}-results.{format}"
+    results_path = results_path / f"{struct.stem}-spoint-results.{format}"
     write_kwargs = {"filename": results_path, "format": f"{format}"}
 
     singlepoint_kwargs = {
