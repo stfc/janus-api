@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 from pathlib import Path
 from typing import Any
 
@@ -11,8 +10,6 @@ from janus_core.helpers.janus_types import Architectures, Properties
 import numpy as np
 
 from api.schemas.singlepoint_schemas import SinglePointResults
-
-logger = logging.getLogger(__name__)
 
 DATA_DIR = Path("/home/ubuntu/janus-api/janus-web/data")
 
@@ -76,10 +73,9 @@ def singlepoint(
     dict[str, Any]
         Results of the single point calculations.
     """
-    logger.info(f"format type: {format}")
     read_kwargs = {"index": range_selector}
     results_path = results_path / f"{struct.stem}-results.{format}"
-    write_kwargs = {"filename": results_path, "format": f"{format}"}
+    write_kwargs = {"filename": results_path, "format": format}
 
     singlepoint_kwargs = {
         "struct_path": struct,
