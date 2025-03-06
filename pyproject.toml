@@ -29,6 +29,7 @@ dependencies = [
 
 [project.urls]
 repository = "https://github.com/stfc/janus-api/"
+
 documentation = "https://stfc.github.io/janus-api/"
 
 [dependency-groups]
