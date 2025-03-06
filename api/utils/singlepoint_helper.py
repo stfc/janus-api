@@ -11,7 +11,7 @@ import numpy as np
 
 from api.schemas.singlepoint_schemas import SinglePointResults
 
-DATA_DIR = Path("/home/ubuntu/janus-api/janus-web/data")
+DATA_DIR = Path("/home/cameron/janus-web/data")
 
 
 def convert_ndarray_to_list(
@@ -41,12 +41,12 @@ def convert_ndarray_to_list(
 
 def singlepoint(
     struct: Path,
-    arch: Architectures | None = "mace_mp",
-    properties: list[Properties] | None = None,
-    range_selector: str | None = ":",
-    write_results: bool | None = True,
-    results_path: Path | None = DATA_DIR / "results/",
-    format: str | None = "extxyz",
+    arch: Architectures = "mace_mp",
+    properties: list[Properties] = None,
+    range_selector: str = ":",
+    write_results: bool = True,
+    results_path: Path = DATA_DIR / "results/",
+    format: str = "extxyz",
 ) -> SinglePointResults:
     """
     Perform single point calculations and return results.
@@ -92,5 +92,8 @@ def singlepoint(
     s_point.run()
     results = convert_ndarray_to_list(s_point.results)
     results["results_path"] = results_path
+
+    for result in results:
+        print(type(results[result]), result, results[result])
 
     return results

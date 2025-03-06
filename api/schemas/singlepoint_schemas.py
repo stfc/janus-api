@@ -12,10 +12,10 @@ class SinglePointResults(BaseModel):
     """Class validation for singlepoint results."""
 
     results_path: Path | None
-    forces: Properties | None
-    energy: Properties | None
-    stress: Properties | None
-    hessian: Properties | None
+    forces: list | None
+    energy: float | None
+    stress: list | None
+    hessian: list | None
 
 
 class SinglePointRequest(BaseModel):
