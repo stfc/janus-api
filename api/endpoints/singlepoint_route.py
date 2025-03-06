@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
+from typing import Any
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
@@ -19,7 +20,7 @@ DATA_DIR = Path("/home/ubuntu/janus-api/janus-web/data")
 
 
 @router.post("/")
-async def get_singlepoint(request: SinglePointRequest):
+async def get_singlepoint(request: SinglePointRequest) -> dict[str, Any]:
     """
     Endpoint to perform single point calculations and return results.
 
