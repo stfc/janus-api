@@ -42,7 +42,7 @@ def convert_ndarray_to_list(
 def singlepoint(
     struct: Path,
     arch: Architectures = "mace_mp",
-    properties: list[Properties] = None,
+    properties: list[Properties] = ("energy", "forces", "stress"),
     range_selector: str = ":",
     write_results: bool = True,
     results_path: Path = DATA_DIR / "results/",
