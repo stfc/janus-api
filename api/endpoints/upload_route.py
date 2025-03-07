@@ -46,18 +46,19 @@ async def upload_chunk(
     HTTPException
         If there is an error during the upload process.
     """
-    logger.info(f"Received chunk {chunk_number} of {total_chunks}")
+    logger.info("Received chunk %s of %s", chunk_number, total_chunks)
     try:
         file_content = await file.read()
-        hash_match = calculate_md5_checksum(file_content, chunk_hash)
-        logger.info(f"Hash matches: {hash_match}")
+        logger.info(
+            "Hash matches: %s", calculate_md5_checksum(file_content, chunk_hash)
+        )
 
         save_chunk(file_content, chunk_number, file.filename)
 
         if chunk_number == total_chunks - 1:
             reassemble_file(total_chunks, file.filename)
     except Exception as e:
-        logger.error(f"Error during chunk upload: {e}")
+        logger.error("Error during chunk upload: %s", e)
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 
@@ -83,11 +84,10 @@ async def upload_single(
     """
     try:
         file_content = await file.read()
-        logger.info(f"Hash matches: {calculate_md5_checksum(file_content, file_hash)}")
-
+        logger.info("Hash matches: %s", calculate_md5_checksum(file_content, file_hash))
         save_file(file_content, file.filename)
     except Exception as e:
-        logger.error(f"Error during file upload: {e}")
+        logger.error("Error during file upload: %s", e)
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 
