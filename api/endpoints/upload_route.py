@@ -49,8 +49,9 @@ async def upload_chunk(
     logger.info(f"Received chunk {chunk_number} of {total_chunks}")
     try:
         file_content = await file.read()
-        hash_match = calculate_md5_checksum(file_content, chunk_hash)
-        logger.info(f"Hash matches: {hash_match}")
+        logger.info(
+            "Hash matches: %s", calculate_md5_checksum(file_content, chunk_hash)
+        )
 
         save_chunk(file_content, chunk_number, file.filename)
 
