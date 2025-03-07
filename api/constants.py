@@ -10,6 +10,5 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 DATA_DIR = Path(config["settings"]["DATA_DIR"])
-OUTPUT_DIR = Path(config["settings"]["OUTPUT_DIR"])
 PORT = int(config["settings"]["PORT"])
 FRONTEND_URL = config["settings"]["FRONTEND_URL"].split(", ")
