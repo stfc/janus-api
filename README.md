@@ -8,6 +8,7 @@ Clone the repository from Github and then install the dependencies with uv, afte
 
 ```bash
 git clone git@github.com:stfc/janus-api.git
+cd janus-api
 uv sync
 ```
 
