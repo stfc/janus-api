@@ -10,7 +10,7 @@ from janus_core.helpers.janus_types import Architectures, Properties
 
 from api.constants import DATA_DIR
 from api.schemas.singlepoint_schemas import SinglePointResults
-from api.utils.data_conversion_helper import convert_ndarray_to_list
+from api.utils.data_conversion_helper import handle_data_types
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +67,7 @@ def singlepoint(
     s_point = SinglePoint(**singlepoint_kwargs)
 
     s_point.run()
-    results = convert_ndarray_to_list(s_point.results)
+    results = handle_data_types(s_point.results)
     results["results_path"] = results_path
 
     return results

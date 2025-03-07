@@ -9,7 +9,7 @@ from janus_core.helpers.janus_types import Architectures
 
 from api.constants import DATA_DIR
 from api.schemas.geomopt_schemas import GeomOptResults
-from api.utils.data_conversion_helper import convert_ndarray_to_list
+from api.utils.data_conversion_helper import handle_data_types
 
 
 def geomopt(
@@ -71,7 +71,7 @@ def geomopt(
     geom_opt = GeomOpt(**geomopt_kwargs)
 
     geom_opt.run()
-    results = convert_ndarray_to_list(geom_opt.struct.info)
+    results = handle_data_types(geom_opt.struct.info)
     results["results_path"] = results_file
     results["traj_path"] = traj_path
 
@@ -79,7 +79,7 @@ def geomopt(
 
 
 if __name__ == "__main__":
-    struct_path = DATA_DIR / "c60.cif"
+    struct_path = DATA_DIR / "c60.xyz"
     optimised_results = geomopt(struct_path)
 
     print(optimised_results)
