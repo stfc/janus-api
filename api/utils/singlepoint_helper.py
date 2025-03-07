@@ -61,12 +61,13 @@ def singlepoint(
         Physical properties to calculate. Default is ("energy", "forces", "stress").
     range_selector : str
         Range of indices to include from the structure. Default is all.
-    write_results : bool | None, default is True
-        Tells function if to save the results of the calculation or not.
-    results_path : Path | None
-        Location to save the results.
+    write_results : bool
+        Tells function if to save the results of the calculation or not,
+        default is True.
+    results_path : Path
+        Location to save the results, default is Path = DATA_DIR / "results/".
     format : str
-        File format to output results as.
+        File format to output results as, default is "extxyz".
 
     Returns
     -------
