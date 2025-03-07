@@ -9,7 +9,12 @@ from typing import Annotated
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
 
-from api.utils.upload_helper import get_all_filenames, read_file, save_file
+from api.utils.upload_helper import (
+    calculate_md5_checksum,
+    get_all_filenames,
+    read_file,
+    save_file,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -38,8 +43,7 @@ async def upload_single(
     """
     try:
         file_content = await file.read()
-        # Disabled hash check for now
-        # logger.info(f"Hash matches: {calculate_md5_checksum(file_content,file_hash)}")
+        logger.info("Hash matches: %s", calculate_md5_checksum(file_content, file_hash))
         save_file(file_content, file.filename)
     except Exception as e:
         logger.error(f"Error during file upload: {e}")

@@ -65,6 +65,7 @@ def geomopt(
         "write_kwargs": write_kwargs,
         "opt_kwargs": opt_kwargs,
         "traj_kwargs": traj_kwargs,
+        "filter_func": None,
     }
 
     geom_opt = GeomOpt(**geomopt_kwargs)
