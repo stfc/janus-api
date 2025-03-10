@@ -5,12 +5,11 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import JSONResponse
-
 from api.constants import DATA_DIR
 from api.schemas.singlepoint_schemas import SinglePointRequest
 from api.utils.singlepoint_helper import singlepoint
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 
 logger = logging.getLogger(__name__)
 

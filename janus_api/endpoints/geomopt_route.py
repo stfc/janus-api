@@ -4,12 +4,11 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import JSONResponse
-
 from api.constants import DATA_DIR
 from api.schemas.geomopt_schemas import GeomOptRequest
 from api.utils.geomopt_helper import geomopt
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 
 logger = logging.getLogger(__name__)
 

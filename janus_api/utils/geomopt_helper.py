@@ -4,12 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from janus_core.calculations.geom_opt import GeomOpt
-from janus_core.helpers.janus_types import Architectures
-
 from api.constants import DATA_DIR
 from api.schemas.geomopt_schemas import GeomOptResults
 from api.utils.data_conversion_helper import handle_data_types
+from janus_core.calculations.geom_opt import GeomOpt
+from janus_core.helpers.janus_types import Architectures
 
 
 def geomopt(
