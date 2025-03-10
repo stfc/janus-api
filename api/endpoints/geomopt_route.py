@@ -37,7 +37,7 @@ async def get_geomopt(request: GeomOptRequest):
         If there is an error during the call.
     """
     struct_path = DATA_DIR / request.struct
-    logger.info(f"Request contents: {request}")
+    logger.info("Request contents: %s", request)
 
     try:
         results = geomopt(struct=struct_path, **request.model_dump(exclude={"struct"}))
