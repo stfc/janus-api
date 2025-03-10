@@ -26,5 +26,5 @@ Activate the venv and start API with main:
 
 ```bash
 source .venv/bin/activate
-python api/main.py
+python janus_api/main.py
 ```
