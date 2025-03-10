@@ -46,7 +46,7 @@ async def upload_single(
         logger.info("Hash matches: %s", calculate_md5_checksum(file_content, file_hash))
         save_file(file_content, file.filename)
     except Exception as e:
-        logger.error(f"Error during file upload: {e}")
+        logger.error("Error during file upload: %s", e)
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 
@@ -64,7 +64,7 @@ async def get_files() -> list[str]:
 
 
 @router.get("/file/{target_file}")
-async def return_file_contents(target_file: str) -> str:
+async def return_file_contents(target_file: str) -> JSONResponse:
     """
     Get the contents of the specified file.
 

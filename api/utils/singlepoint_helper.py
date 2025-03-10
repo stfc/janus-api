@@ -17,12 +17,12 @@ logger = logging.getLogger(__name__)
 
 def singlepoint(
     struct: Path,
-    arch: Architectures | None = "mace_mp",
+    arch: Architectures = "mace_mp",
     properties: list[Properties] | None = None,
-    range_selector: str | None = ":",
-    write_results: bool | None = True,
-    results_path: Path | None = DATA_DIR,
-    format: str | None = "extxyz",
+    range_selector: str = ":",
+    write_results: bool = True,
+    results_path: Path = DATA_DIR,
+    file_format: str = "cif",
 ) -> SinglePointResults:
     """
     Perform single point calculations and return results.
@@ -37,22 +37,23 @@ def singlepoint(
         Physical properties to calculate. Default is ("energy", "forces", "stress").
     range_selector : str
         Range of indices to include from the structure. Default is all.
-    write_results : bool | None, default is True
-        Tells function if to save the results of the calculation or not.
-    results_path : Path | None
-        Location to save the results.
-    format : str
-        File format to output results as.
+    write_results : bool
+        Tells function if to save the results of the calculation or not, default
+        is True.
+    results_path : Path
+        Location to save the results default is DATA_DIR.
+    file_format : str
+        File format to output results as, default is "cif".
 
     Returns
     -------
-    dict[str, Any]
+    SinglePointResults
         Results of the single point calculations.
     """
-    logger.info(f"format type: {format}")
+    logger.info("File format type: %s", file_format)
     read_kwargs = {"index": range_selector}
-    results_path = results_path / f"{struct.stem}-spoint-results.{format}"
-    write_kwargs = {"filename": results_path, "format": f"{format}"}
+    results_path = results_path / f"{struct.stem}-spoint-results.{file_format}"
+    write_kwargs = {"filename": results_path, "format": f"{file_format}"}
 
     singlepoint_kwargs = {
         "struct_path": struct,

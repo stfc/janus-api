@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from typing import Any
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
@@ -17,7 +18,7 @@ router = APIRouter(prefix="/singlepoint", tags=["calculations"])
 
 
 @router.post("/")
-async def get_singlepoint(request: SinglePointRequest):
+async def get_singlepoint(request: SinglePointRequest) -> dict[str, Any]:
     """
     Endpoint to perform single point calculations and return results.
 
@@ -37,7 +38,7 @@ async def get_singlepoint(request: SinglePointRequest):
         If there is an error during the call.
     """
     struct_path = DATA_DIR / request.struct
-    logger.info(f"Request contents: {request}")
+    logger.info("Request contents: %s", request)
 
     try:
         results = singlepoint(

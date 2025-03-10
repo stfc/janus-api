@@ -1,5 +1,5 @@
 [project]
-name = "janus-web"
+name = "janus-api"
 version = "0.0.1"
 description = "API for janus-core"
 authors = [
@@ -21,7 +21,6 @@ dependencies = [
     "uvicorn<1.0.0,>=0.22.0",
     "python-multipart",
     "fastapi-cors",
-    "python-dotenv>=1.0.1",
 ]
 
 [project.optional-dependencies]
@@ -29,8 +28,8 @@ dependencies = [
 [project.scripts]
 
 [project.urls]
-repository = "https://github.com/stfc/janus-web/"
-documentation = "https://stfc.github.io/janus-web/"
+repository = "https://github.com/stfc/janus-api/"
+documentation = "https://stfc.github.io/janus-api/"
 
 [dependency-groups]
 dev = [
