@@ -8,7 +8,7 @@ import numpy as np
 
 mock_data_dir = MagicMock()
 with patch.dict("sys.modules", {"api.constants": MagicMock(DATA_DIR=mock_data_dir)}):
-    from api.utils.singlepoint_helper import handle_data_types
+    from janus_api.utils.singlepoint_helper import handle_data_types
 
 
 def test_convert_ndarray_to_list_with_array():

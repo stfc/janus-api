@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 mock_data_dir = MagicMock()
 with patch.dict("sys.modules", {"api.constants": MagicMock(DATA_DIR=mock_data_dir)}):
-    from api.utils.upload_helper import (
+    from janus_api.utils.upload_helper import (
         calculate_md5_checksum,
         get_all_filenames,
         save_file,

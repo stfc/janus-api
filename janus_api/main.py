@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from api.constants import FRONTEND_URL, PORT
-from api.endpoints import geomopt_route, singlepoint_route, upload_route
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
+from janus_api.constants import FRONTEND_URL, PORT
+from janus_api.endpoints import geomopt_route, singlepoint_route, upload_route
 import logging_config
 
 app = FastAPI()

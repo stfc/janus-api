@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from api.constants import DATA_DIR
+from janus_api.constants import DATA_DIR
 
 
 def save_file(file_contents: bytes, filename: str, directory: Path = DATA_DIR):

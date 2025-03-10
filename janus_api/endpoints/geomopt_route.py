@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import logging
 
-from api.constants import DATA_DIR
-from api.schemas.geomopt_schemas import GeomOptRequest
-from api.utils.geomopt_helper import geomopt
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
+
+from janus_api.constants import DATA_DIR
+from janus_api.schemas.geomopt_schemas import GeomOptRequest
+from janus_api.utils.geomopt_helper import geomopt
 
 logger = logging.getLogger(__name__)
 
