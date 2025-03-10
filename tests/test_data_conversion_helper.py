@@ -7,7 +7,9 @@ from unittest.mock import MagicMock, patch
 import numpy as np
 
 mock_data_dir = MagicMock()
-with patch.dict("sys.modules", {"api.constants": MagicMock(DATA_DIR=mock_data_dir)}):
+with patch.dict(
+    "sys.modules", {"janus_api.constants": MagicMock(DATA_DIR=mock_data_dir)}
+):
     from janus_api.utils.singlepoint_helper import handle_data_types
 
 
