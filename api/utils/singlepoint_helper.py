@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 from pathlib import Path
 
 from janus_core.calculations.single_point import SinglePoint
@@ -12,13 +11,11 @@ from api.constants import DATA_DIR
 from api.schemas.singlepoint_schemas import SinglePointResults
 from api.utils.data_conversion_helper import handle_data_types
 
-logger = logging.getLogger(__name__)
-
 
 def singlepoint(
     struct: Path,
     arch: Architectures = "mace_mp",
-    properties: list[Properties] | None = None,
+    properties: list[Properties] = ("energy", "forces", "stress"),
     range_selector: str = ":",
     write_results: bool = True,
     results_path: Path = DATA_DIR,
@@ -50,7 +47,6 @@ def singlepoint(
     SinglePointResults
         Results of the single point calculations.
     """
-    logger.info("File format type: %s", file_format)
     read_kwargs = {"index": range_selector}
     results_path = results_path / f"{struct.stem}-spoint-results.{file_format}"
     write_kwargs = {"filename": results_path, "format": f"{file_format}"}
