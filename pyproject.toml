@@ -20,7 +20,7 @@ dependencies = [
     "fastapi<1.0.0,>=0.95.0",
     "uvicorn<1.0.0,>=0.22.0",
     "python-multipart",
-    "fastapi-cors"
+    "fastapi-cors",
 ]
 
 [project.optional-dependencies]
@@ -29,7 +29,6 @@ dependencies = [
 
 [project.urls]
 repository = "https://github.com/stfc/janus-api/"
-
 documentation = "https://stfc.github.io/janus-api/"
 
 [dependency-groups]

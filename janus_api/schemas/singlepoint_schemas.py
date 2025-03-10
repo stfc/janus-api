@@ -12,10 +12,10 @@ class SinglePointResults(BaseModel):
     """Class validation for singlepoint results."""
 
     results_path: Path | None
-    forces: list | None
-    energy: float | None
-    stress: list | None
-    hessian: list | None
+    forces: list | None = None
+    energy: float | None = None
+    stress: list | None = None
+    hessian: list | None = None
 
 
 class SinglePointRequest(BaseModel):
@@ -25,4 +25,4 @@ class SinglePointRequest(BaseModel):
     arch: Architectures = "mace_mp"
     properties: list[Properties] | None = None
     range_selector: str | None = None
-    format: str = "extxyz"
+    format: str = "cif"

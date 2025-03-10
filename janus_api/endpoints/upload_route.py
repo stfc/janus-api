@@ -3,63 +3,22 @@
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi.responses import JSONResponse
 
-from api.utils.upload_helper import (
+from janus_api.utils.upload_helper import (
     calculate_md5_checksum,
     get_all_filenames,
-    reassemble_file,
-    save_chunk,
+    read_file,
     save_file,
 )
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/upload", tags=["upload"])
-
-
-@router.post("/chunk")
-async def upload_chunk(
-    file: Annotated[UploadFile, File()],
-    chunk_number: Annotated[int, Form()],
-    total_chunks: Annotated[int, Form()],
-    chunk_hash: Annotated[str, Form()],
-) -> None:
-    """
-    Allow individual chunks to be uploaded and later reassembled.
-
-    Parameters
-    ----------
-    file : UploadFile
-        The chunk file to be uploaded.
-    chunk_number : int
-        The number of the chunk being uploaded.
-    total_chunks : int
-        The total number of chunks for the file.
-    chunk_hash : str
-        The MD5 hash of the chunk.
-
-    Raises
-    ------
-    HTTPException
-        If there is an error during the upload process.
-    """
-    logger.info("Received chunk %s of %s", chunk_number, total_chunks)
-    try:
-        file_content = await file.read()
-        logger.info(
-            "Hash matches: %s", calculate_md5_checksum(file_content, chunk_hash)
-        )
-
-        save_chunk(file_content, chunk_number, file.filename)
-
-        if chunk_number == total_chunks - 1:
-            reassemble_file(total_chunks, file.filename)
-    except Exception as e:
-        logger.error("Error during chunk upload: %s", e)
-        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @router.post("/single")
@@ -102,3 +61,39 @@ async def get_files() -> list[str]:
         A list of filenames of all uploaded files.
     """
     return get_all_filenames()
+
+
+@router.get("/file/{target_file}")
+async def return_file_contents(target_file: str) -> JSONResponse:
+    """
+    Get the contents of the specified file.
+
+    Parameters
+    ----------
+    target_file : str
+        The file to be read.
+
+    Returns
+    -------
+    JSONResponse
+        A JSON response containing the file contents, filename, and file format.
+
+    Raises
+    ------
+    HTTPException
+        If the file is not found or cannot be read.
+    """
+    try:
+        file_content = read_file(target_file)
+        file_format = Path(target_file).suffix.lstrip(".")
+        return JSONResponse(
+            content={
+                "fileName": target_file,
+                "fileFormat": file_format,
+                "content": file_content,
+            }
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail="File not found") from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e

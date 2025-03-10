@@ -3,20 +3,18 @@
 from __future__ import annotations
 
 import logging
-from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 
-from api.schemas.singlepoint_schemas import SinglePointRequest
-from api.utils.singlepoint_helper import singlepoint
+from janus_api.constants import DATA_DIR
+from janus_api.schemas.singlepoint_schemas import SinglePointRequest
+from janus_api.utils.singlepoint_helper import singlepoint
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/singlepoint", tags=["calculations"])
-
-DATA_DIR = Path("/home/ubuntu/janus-api/janus-web/data")
 
 
 @router.post("/")
@@ -39,8 +37,7 @@ async def get_singlepoint(request: SinglePointRequest) -> dict[str, Any]:
     HTTPException
         If there is an error during the call.
     """
-    base_dir = Path("data")
-    struct_path = base_dir / request.struct
+    struct_path = DATA_DIR / request.struct
     logger.info("Request contents: %s", request)
 
     try:
@@ -63,4 +60,6 @@ async def get_singlepoint(request: SinglePointRequest) -> dict[str, Any]:
         )
     except Exception as e:
         logger.error(e)
-        raise HTTPException(status_code=500, detail="Internal Server Error") from e
+        raise HTTPException(
+            status_code=500, detail=f"Internal Server Error - {e}"
+        ) from e

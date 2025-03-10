@@ -12,11 +12,21 @@ cd janus-api
 uv sync
 ```
 
-## Usage
+## Setup and developing
 
-Start API with main:
+Once you've installed dependencies, copy `config-template.ini`, renaming the copy `config.ini`, and change the variables as required. The default setup will allow you to run the server locally.
+
+Before beginning development make sure to install the `pre-commit`:
 
 ```bash
-cd
-python api/main.py
+pre-commit install
+```
+
+## Usage
+
+Activate the venv and start API with main:
+
+```bash
+source .venv/bin/activate
+python janus_api/main.py
 ```
